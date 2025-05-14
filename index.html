@@ -192,9 +192,15 @@
                class="interpolation-image"
                alt="Framework image"
                style="max-width: 100%;" />
-          <p>
-            Depth pruning aims to reduce the inference cost of large language models without relying on hardware-specific optimizations, by simply removing less important Transformer blocks. However, our empirical findings show that the importance of each block is highly task-dependent — a block crucial for one task can be safely removed for another without affecting performance. Based on this observation, we propose PuDDing (Prompt-routed Dynamic Depth Pruning), a dynamic depth pruning method that determines which blocks to omit based on the input prompt. PuDDing uses a lightweight router to select the best omission set from a set of data-driven candidates. Empirical results on commonsense reasoning benchmarks show that PuDDing not only accelerates inference but also achieves better task performance compared to static pruning baselines.
-          </p>
+               <p>
+                Our method, <strong>PuDDing</strong> (Prompt-routed Dynamic Depth Pruning), aims to accelerate inference and reduce memory usage of large language models by selectively removing transformer blocks based on the input prompt. Unlike static pruning which removes the same blocks regardless of input, PuDDing adapts the model depth for each prompt using a lightweight router.
+              </p>
+              <p>
+                The framework works in two stages. First, we construct a small but effective pool of candidate omission sets by evaluating task-specific losses on calibration datasets. Second, we train a transformer-based router that maps each prompt to the most suitable omission set in this pool.
+              </p>
+              <p>
+                At inference time, given a prompt, the router selects an omission set that best preserves task performance. The model then loads only the retained blocks into high-speed memory, skipping the pruned ones. This design significantly reduces loading time and computation cost while maintaining high accuracy across a variety of tasks.
+              </p>
         </div>
       </div>
     </div>
@@ -227,17 +233,17 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">A Closer Look at MaskedKD</h2>
+        <h2 class="title is-3">A Closer Look at PuDDing</h2>
         <div class="content has-text-justified">
-  	<p>
+  	<!-- <p>
 	To answer why the proposed student-guided masking works well, we conduct an in-depth comparative analysis. Our observations can be summarized as follows:
 		<ul>
 		  <li>Student-guided masking provides a good curriculum for distillation, enhancing the student training.</li>
 		  <li>Masking the tokens at input preserved the supervision quality better than gradually removing tokens in the intermediate layers</li>
 		  <li>In supervised knowledge distillation, masking the teacher model is beneficial, as masking the student significantly degrades accuracy, contrary to standard mask-based SSL practices.</li>
 		</ul>
-	</p>
-	<img src="./static/images/teacher_acc.png"
+	</p> -->
+	<img src="static/images/heatmap_llama.png"
 	class="interpolation-image"
 	alt="Interpolate start reference image."
 	style="max-width: 100%;"/>
@@ -245,7 +251,7 @@
 	Compared with various masking mechanisms, student-guided masking (MaskedKD) is the sole approach that maintains or improves compared with traditional logit distillation, which acts as an implicit curriculum for distillation.
 	During the early stage of training, masking makes the teachers less accurate, making it easier for the student to mimic their predictions.
 	</p>
-	<img src="./static/images/ablation.png"
+	<img src="./static/images/inference_speed.png"
 	class="interpolation-image"
 	alt="Interpolate start reference image."
 	style="max-width: 100%;"/>
