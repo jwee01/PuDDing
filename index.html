@@ -158,14 +158,37 @@
 <!-- End paper abstract -->
 
 
-<!-- Framework -->
+<!-- Observation -->
 <section class="section hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Observation</h2>
+        <div class="content has-text-justified">
+          <img src="static/images/observaion1.png"
+               class="interpolation-image"
+               alt="Framework image"
+               style="width: 50%; display: block; margin: 0 auto;" />
+          <p>
+            Observations..
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- Framework -->
+<section class="section hero is is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Framework</h2>
         <div class="content has-text-justified">
-          <img src="static/images/4_model_pipeline.jpg"
+          <img src="static/images/4_model_pipeline2.jpg"
                class="interpolation-image"
                alt="Framework image"
                style="max-width: 100%;" />
@@ -179,129 +202,92 @@
 </section>
 
 
-
-
-<!-- Image carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-       <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel1.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          First image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel2.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          Second image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel3.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-         Third image description.
-       </h2>
-     </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="static/images/carousel4.jpg" alt="MY ALT TEXT"/>
-      <h2 class="subtitle has-text-centered">
-        Fourth image description.
-      </h2>
-    </div>
-  </div>
-</div>
-</div>
-</section>
-<!-- End image carousel -->
-
-
-
-
-<!-- Youtube video -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <!-- Paper video. -->
-      <h2 class="title is-3">Video Presentation</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          
-          <div class="publication-video">
-            <!-- Youtube embed code here -->
-            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
+<!-- Main result -->
+<section class="section hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Main Results</h2>
+        <div class="content has-text-justified">
+		<img src="static/images/main_result.jpg"
+		class="interpolation-image"
+		alt="Interpolate start reference image."
+		style="max-width: 100%;"/>
+          <p>
+          Maske dKD dramatically reduces the supervision cost by 25-50% without degrading the student accuracy. We also observe that, in most cases, masking a small fraction of patches is beneficial for the performance of the trained student.
+	  </p>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- End youtube video -->
 
-
-<!-- Video carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">Another Carousel</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-video1">
-          <video poster="" id="video1" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel1.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video2">
-          <video poster="" id="video2" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel2.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video3">
-          <video poster="" id="video3" autoplay controls muted loop height="100%">\
-            <!-- Your video file here -->
-            <source src="static/videos/carousel3.mp4"
-            type="video/mp4">
-          </video>
+<!-- Closer look -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">A Closer Look at MaskedKD</h2>
+        <div class="content has-text-justified">
+  	<p>
+	To answer why the proposed student-guided masking works well, we conduct an in-depth comparative analysis. Our observations can be summarized as follows:
+		<ul>
+		  <li>Student-guided masking provides a good curriculum for distillation, enhancing the student training.</li>
+		  <li>Masking the tokens at input preserved the supervision quality better than gradually removing tokens in the intermediate layers</li>
+		  <li>In supervised knowledge distillation, masking the teacher model is beneficial, as masking the student significantly degrades accuracy, contrary to standard mask-based SSL practices.</li>
+		</ul>
+	</p>
+	<img src="./static/images/teacher_acc.png"
+	class="interpolation-image"
+	alt="Interpolate start reference image."
+	style="max-width: 100%;"/>
+	<p>
+	Compared with various masking mechanisms, student-guided masking (MaskedKD) is the sole approach that maintains or improves compared with traditional logit distillation, which acts as an implicit curriculum for distillation.
+	During the early stage of training, masking makes the teachers less accurate, making it easier for the student to mimic their predictions.
+	</p>
+	<img src="./static/images/ablation.png"
+	class="interpolation-image"
+	alt="Interpolate start reference image."
+	style="max-width: 100%;"/>
+	<p> 
+		<b> Left & Middle. </b> Masking tokens at input (MaskedKD) is effective for preserving supervision quality while removing tokens at intermediate layers (ToMe) is better for keeping high prediction quality.
+	</p>
+	<p>
+		<b> Right. </b> Even at the low masking ratio, masking student degrades the final accuracy after distillation, while masking teacher does not. This contrasts with mask-based SSL, where masking student is essential.
+	</p>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- End video carousel -->
-
-
-
-
-
-
-<!-- Paper poster -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">Poster</h2>
-
-      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
-          </iframe>
-        
+	
+<!-- Acknowledgements
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Acknowledgements</h2>
+        <div class="content has-text-justified">
+          <p>
+            This work was partly supported by the National Research Foundation of Korea (NRF) grant funded by the Korean government (MSIT) (RS2023-00213710, RS2023-00210466), and the Institute of Information & communications Technology Planning & Evaluation (IITP) grant funded by the Korean government (MSIT) (RS-2019-II191906, Artificial Intelligence Graduate School Program (POSTECH), RS-2022-II220959, Few-Shot learning of Causal Inference in Vision and Language
+for Decision Making), and POSCO Creative Ideas grant (2023Q024, 2023Q032).
+          </p>
+        </div>
       </div>
     </div>
-  </section>
-<!--End paper poster -->
-
-
+  </div>
+</section> -->
+  
 <!--BibTex citation -->
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
-      <h2 class="title">BibTeX</h2>
-      <pre><code>BibTex Code Here</code></pre>
+      <h2 class="title">Citation</h2>
+      <pre><code>@inproceedings{wee2025prompt,
+          title={Prompt-based Depth Pruning of Large Language Models},
+          author={Wee, Juyun and Park, Minjae and Lee, Jaeho},
+          booktitle={International Conference on Machine Learning},
+          year={2025}
+        }</code></pre>
     </div>
 </section>
 <!--End BibTex citation -->
@@ -315,7 +301,7 @@
 
           <p>
             This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            You are free to borrow the of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
             Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
 
