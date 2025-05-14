@@ -165,13 +165,13 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Framework</h2>
         <div class="content has-text-justified">
-		<img src="static/images/4_model_pipeline.png"
-		class="interpolation-image"
-		alt="Interpolate start reference image."
-		style="max-width: 100%;"/>
-    <p>
-      Depth pruning aims to reduce the inference cost of a large language model without any hardware-specific complications, by simply removing several less important transformer blocks. However, our empirical findings suggest that the importance of a transformer block may be highly task-dependent -- a block that is crucial for a task can be removed without degrading the accuracy on another task. Based on this observation, we develop a dynamic depth pruning algorithm, coined PuDDing (Prompt-routed Dynamic Depth Pruning), which determines which blocks to omit from the model based on the input prompt. PuDDing operates by training a lightweight router to predict the best omission set among a set of options, where this option set has also been constructed in a data-driven manner. Empirical results on commonsense reasoning benchmarks demonstrate that PuDDing effectively accelerates the inference language models, and achieves better on-task performance than static depth pruning baselines.
-    </p>
+          <img src="static/images/4_model_pipeline.png"
+               class="interpolation-image"
+               alt="Framework image"
+               style="max-width: 100%;" />
+          <p>
+            Depth pruning aims to reduce the inference cost of large language models without relying on hardware-specific optimizations, by simply removing less important Transformer blocks. However, our empirical findings show that the importance of each block is highly task-dependent — a block crucial for one task can be safely removed for another without affecting performance. Based on this observation, we propose PuDDing (Prompt-routed Dynamic Depth Pruning), a dynamic depth pruning method that determines which blocks to omit based on the input prompt. PuDDing uses a lightweight router to select the best omission set from a set of data-driven candidates. Empirical results on commonsense reasoning benchmarks show that PuDDing not only accelerates inference but also achieves better task performance compared to static pruning baselines.
+          </p>
         </div>
       </div>
     </div>
