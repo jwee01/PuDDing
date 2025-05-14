@@ -169,20 +169,9 @@
 		class="interpolation-image"
 		alt="Interpolate start reference image."
 		style="max-width: 100%;"/>
-	<p>
-            MaskedKD(Masked Knowledge Distillation) is a very simple yet effective approach for reducing supervision cost by masking the teacher input tokens. Given a training image-label sample $(x, y)$, we generate a masked version $x_{mask}$ of the input image by removing some patches of the image $x$. Then, we train the student by using the following loss: 
-		\begin{equation}
-		\ell(x,y) = \ell_{\mathtt{CE}}(f_S(x),y) + \lambda \cdot \ell_{\mathtt{KD}}(f_S(x),f_T(x_{\mathtt{mask}})),\label{eq:maskedkd}
-		\end{equation}
-	    where $ℓ_{CE}$ denotes the cross-entropy loss, $ℓ_{KD}$ denotes the distillation loss, and $λ ≥ 0$ is a balancing hyperparameter.
-  	</p>
-	<p>
-	    <b>Student-guided saliency score.</b> To select the patches to be masked, we use the last layer attention scores of the student ViT as the patch saliency score:
-	   \begin{align}
-	   \mathbf{a}^{(h)} = \mathrm{Softmax}\left( \big(q_{\mathtt{cls}}^\top k_1,\:q_{\mathtt{cls}}^\top k_2,\:\cdots,\:q_{\mathtt{cls}}^\top k_N\big) / \sqrt{d}\right), \quad h \in \{1,2,\ldots,H\}
-	   \end{align}
-	   where $q_{\mathtt{cls}}$ is the query vector of the class token, $k_{i}$ is the key vector of the $i$-th image patch token, $d$ is the length of query and key vectors, and $H$ is the number of attention heads. The final patch saliency score is computed by taking the average $\bar{\mathbf{a}} = (\sum_{h=1}^H \mathbf{a}^{(h)})/H$. 
-	</p>
+    <p>
+      Depth pruning aims to reduce the inference cost of a large language model without any hardware-specific complications, by simply removing several less important transformer blocks. However, our empirical findings suggest that the importance of a transformer block may be highly task-dependent -- a block that is crucial for a task can be removed without degrading the accuracy on another task. Based on this observation, we develop a dynamic depth pruning algorithm, coined PuDDing (Prompt-routed Dynamic Depth Pruning), which determines which blocks to omit from the model based on the input prompt. PuDDing operates by training a lightweight router to predict the best omission set among a set of options, where this option set has also been constructed in a data-driven manner. Empirical results on commonsense reasoning benchmarks demonstrate that PuDDing effectively accelerates the inference language models, and achieves better on-task performance than static depth pruning baselines.
+    </p>
         </div>
       </div>
     </div>
