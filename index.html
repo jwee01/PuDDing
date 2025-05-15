@@ -133,7 +133,7 @@
         <!-- type="video/mp4"> -->
       <!-- </video> -->
       <h2 class="subtitle has-text-centered">
-        Our method, PuDDing, reduces memory and computational costs by dynamically removing Transformer blocks of LLMs based on input prompts using a pretrained router.
+        Our method, PuDDing (Prompt-routed Dynamic Depth Pruning), reduces memory usage and accelerates inference of large language models by selectively removing Transformer blocks based on the input prompt using a lightweight pretrained router.
       </h2>
     </div>
   </div>
@@ -169,9 +169,13 @@
                class="interpolation-image"
                alt="Framework image"
                style="width: 50%; display: block; margin: 0 auto;" />
-          <p>
-            Observations..
-          </p>
+               <p>
+                A key motivation behind <strong>PuDDing</strong> is the observation that the importance of transformer blocks in large language models is highly task-dependent. A block that is essential for one task may be redundant for another. For example, in our experiments with LLaMA 3.1-8B, replacing block 30 with block 29 led to a sharp accuracy drop on BoolQ (over 20%p), while slightly improving performance on PIQA and WinoGrande. This suggests that different blocks capture task-specific knowledge.
+              </p>
+              <p>
+                These findings highlight the limitation of static pruning and motivate our core idea: pruning should be <em>dynamic</em> and <em>prompt-aware</em>. Rather than relying on a fixed omission set, <strong>PuDDing</strong> adapts the model architecture to each input prompt, achieving both efficiency and task-specialized performance.
+              </p>
+              
         </div>
       </div>
     </div>
@@ -192,10 +196,9 @@
                class="interpolation-image"
                alt="Framework image"
                style="max-width: 100%;" />
-               <p>
-                Our method, <strong>PuDDing</strong> (Prompt-routed Dynamic Depth Pruning), aims to accelerate inference and reduce memory usage of large language models by selectively removing transformer blocks based on the input prompt. Unlike static pruning which removes the same blocks regardless of input, PuDDing adapts the model depth for each prompt using a lightweight router.
-              </p>
+               <p></p>
               <p>
+                
                 The framework works in two stages. First, we construct a small but effective pool of candidate omission sets by evaluating task-specific losses on calibration datasets. Second, we train a transformer-based router that maps each prompt to the most suitable omission set in this pool.
               </p>
               <p>
@@ -219,9 +222,12 @@
 		class="interpolation-image"
 		alt="Interpolate start reference image."
 		style="max-width: 100%;"/>
-          <p>
-          Maske dKD dramatically reduces the supervision cost by 25-50% without degrading the student accuracy. We also observe that, in most cases, masking a small fraction of patches is beneficial for the performance of the trained student.
-	  </p>
+    <p>
+      We evaluated <strong>PuDDing</strong> on zero-shot commonsense reasoning tasks using the LLaMA-3.1 8B model and compared its performance with state-of-the-art compression methods. As shown in the results above, PuDDing consistently achieves the highest average accuracy across all tested sparsity levels. In particular, when pruning 7 blocks (over 20% sparsity), it outperforms the best baseline by nearly <strong>3 percentage points</strong>.
+    </p>
+    <p>
+      In addition, PuDDing demonstrates strong generalization on more complex, unseen tasks such as OpenBookQA, MathQA, and MMLU. Even though these tasks were not seen during router training, PuDDing maintains superior performance compared to existing pruning baselines. For detailed results, please refer to <em>Table 5 in our paper</em>.
+    </p>
         </div>
       </div>
     </div>
@@ -233,7 +239,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">A Closer Look at PuDDing</h2>
+        <h2 class="title is-3">Pruning Behavior and Latency Overview</h2>
         <div class="content has-text-justified">
   	<!-- <p>
 	To answer why the proposed student-guided masking works well, we conduct an in-depth comparative analysis. Our observations can be summarized as follows:
@@ -248,18 +254,14 @@
 	alt="Interpolate start reference image."
 	style="max-width: 100%;"/>
 	<p>
-	Compared with various masking mechanisms, student-guided masking (MaskedKD) is the sole approach that maintains or improves compared with traditional logit distillation, which acts as an implicit curriculum for distillation.
-	During the early stage of training, masking makes the teachers less accurate, making it easier for the student to mimic their predictions.
+    We analyze the pruning patterns of LLaMA-3.1 8B under 20% sparsity across zero-shot tasks. Some blocks (e.g., 20, 26, 27) are consistently pruned, while others (e.g., 1–3, 5–8) are almost always retained. Certain blocks show task-specific behavior—for instance, block 4 is often pruned in ARC tasks but retained in PIQA and WinoGrande. Similar trends are observed in OPT and Vicuna models (see Appendix C).
 	</p>
 	<img src="./static/images/inference_speed.png"
 	class="interpolation-image"
 	alt="Interpolate start reference image."
 	style="max-width: 100%;"/>
 	<p> 
-		<b> Left & Middle. </b> Masking tokens at input (MaskedKD) is effective for preserving supervision quality while removing tokens at intermediate layers (ToMe) is better for keeping high prediction quality.
-	</p>
-	<p>
-		<b> Right. </b> Even at the low masking ratio, masking student degrades the final accuracy after distillation, while masking teacher does not. This contrasts with mask-based SSL, where masking student is essential.
+		Above table shows that PuDDing, with 21.88% sparsity, achieves a consistent 1.2× speedup over the dense LLaMA-3.1 8B model on both A100 and RTX 6000 Ada GPUs—across both pre-fill and generation stages—while the routing overhead remains minimal (4–8ms).
 	</p>
         </div>
       </div>
@@ -287,7 +289,7 @@ for Decision Making), and POSCO Creative Ideas grant (2023Q024, 2023Q032).
 <!--BibTex citation -->
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
-      <h2 class="title">Citation</h2>
+      <h2 class="title">BibTeX</h2>
       <pre><code>@inproceedings{wee2025prompt,
           title={Prompt-based Depth Pruning of Large Language Models},
           author={Wee, Juyun and Park, Minjae and Lee, Jaeho},
